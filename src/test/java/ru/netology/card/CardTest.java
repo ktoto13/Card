@@ -21,6 +21,7 @@ public class CardTest {
 
     @BeforeAll
     static void setUpAll() {
+
         WebDriverManager.chromedriver().setup();
     }
 
