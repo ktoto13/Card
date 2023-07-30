@@ -20,13 +20,12 @@ public class CardTest {
     private WebDriver driver;
 
     @BeforeAll
-    static void setUpAll() {
-
+    public static void setUpAll() {
         WebDriverManager.chromedriver().setup();
     }
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--no-sandbox");
@@ -36,23 +35,20 @@ public class CardTest {
     }
 
     @AfterEach
-    void tearDown() {
+    public void tearDown() {
         driver.quit();
         driver = null;
     }
 
     @Test
-    void testCorrectFilling() {
+    public void testCorrectFilling() {
 
-        driver.get("http://localhost:9999");
         driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Наталия Римская-Корсакова");
         driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79990000000");
         driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
-        driver.findElement(By.className("button_text")).click();
-        String text = driver.findElement(By.cssSelector("[data-test-id=order-success]")).getText();
-        assertEquals("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", text.trim());
-
+        driver.findElement(By.className("button.button")).click();
+        var actualText = driver.findElement(By.cssSelector("[data-test-id=order-success]")).getText();
+        assertEquals("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", actualText);
 
     }
 }
-
